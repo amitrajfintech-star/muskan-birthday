@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For Muskan ❤️</title>
+
+<style>
+body {
+    margin: 0;
+    font-family: 'Segoe UI', sans-serif;
+    background: radial-gradient(circle at top, #1a001f, #000);
+    color: white;
+    overflow: hidden;
+}
+
+/* INTRO SCREEN */
+#intro {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background: black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    z-index: 10;
+}
+
+#intro h1 {
+    font-size: 2em;
+    animation: fade 2s infinite alternate;
+}
+
+@keyframes fade {
+    from {opacity: 0.4;}
+    to {opacity: 1;}
+}
+
+/* LOCK */
+#lock {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+}
+
+input {
+    padding: 10px;
+    border-radius: 10px;
+    border: none;
+}
+
+button {
+    margin-top: 10px;
+    padding: 10px 20px;
+    border-radius: 20px;
+    border: none;
+    background: pink;
+    cursor: pointer;
+}
+
+/* MAIN */
+#main {
+    display: none;
+    text-align: center;
+    padding: 20px;
+}
+
+.card {
+    backdrop-filter: blur(20px);
+    background: rgba(255,255,255,0.08);
+    padding: 20px;
+    border-radius: 25px;
+    max-width: 400px;
+    margin: auto;
+}
+
+img {
+    width: 100%;
+    border-radius: 20px;
+    margin-top: 15px;
+    transition: opacity 1s;
+}
+
+/* typing */
+#text {
+    min-height: 50px;
+}
+
+/* letter popup */
+#popup {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    background: rgba(0,0,0,0.9);
+    padding: 20px;
+    border-radius: 20px;
+    width: 80%;
+}
+
+/* hearts */
+.heart {
+    position: absolute;
+    color: rgba(255,105,180,0.6);
+    animation: floatUp 6s linear infinite;
+}
+
+@keyframes floatUp {
+    from {transform: translateY(100vh);}
+    to {transform: translateY(-10vh);}
+}
+</style>
+</head>
+
+<body>
+
+<!-- INTRO -->
+<div id="intro" onclick="start()">
+    <h1>Tap to Open Something Special 💖</h1>
+</div>
+
+<!-- LOCK -->
+<div id="lock">
+    <h2>Enter Something Only You Know 💭</h2>
+    <input type="password" id="pass">
+    <button onclick="unlock()">Enter</button>
+</div>
+
+<!-- MAIN -->
+<div id="main">
+    <div class="card">
+        <h1>Happy Birthday Muskan ❤️</h1>
+        <div id="text"></div>
+
+        <img id="slide" src="photo1.jpg">
+
+        <button onclick="openLetter()">Open My Heart 💌</button>
+    </div>
+</div>
+
+<!-- POPUP -->
+<div id="popup">
+    <p>
+    Muskan ❤️<br><br>
+    From the day you came into my life, everything changed.<br>
+    You are my happiness, my safe place, my everything 💖<br><br>
+    I don’t just love you… I choose you every single day.<br><br>
+    Happy Birthday my love 🎂✨
+    </p>
+    <button onclick="closeLetter()">Close</button>
+</div>
+
+<audio id="music" loop>
+  <source src="song.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+// start intro
+function start(){
+    document.getElementById("intro").style.display="none";
+    document.getElementById("lock").style.display="flex";
+    document.getElementById("music").play();
+}
+
+// unlock
+function unlock(){
+    if(document.getElementById("pass").value==="muskan"){
+        document.getElementById("lock").style.display="none";
+        document.getElementById("main").style.display="block";
+    } else {
+        alert("Wrong 😜");
+    }
+}
+
+// typing
+let msg="Muskan, you are the most beautiful part of my life 💖";
+let i=0;
+function type(){
+    if(i<msg.length){
+        document.getElementById("text").innerHTML+=msg[i];
+        i++;
+        setTimeout(type,50);
+    }
+}
+type();
+
+// slideshow
+let imgs=["photo1.jpg","photo2.jpg","photo3.jpg","photo4.jpg","photo5.jpg","photo6.jpg","photo7.jpg","photo8.jpg","photo9.jpg","photo10.jpg","photo11.jpg","photo12.jpg","photo13.jpg","photo14.jpg","photo15.jpg"];
+let index=0;
+setInterval(()=>{
+    index=(index+1)%imgs.length;
+    let img=document.getElementById("slide");
+    img.style.opacity=0;
+    setTimeout(()=>{
+        img.src=imgs[index];
+        img.style.opacity=1;
+    },500);
+},3000);
+
+// popup
+function openLetter(){
+    document.getElementById("popup").style.display="block";
+}
+function closeLetter(){
+    document.getElementById("popup").style.display="none";
+}
+
+// hearts
+setInterval(()=>{
+    let h=document.createElement("div");
+    h.className="heart";
+    h.innerHTML="💖";
+    h.style.left=Math.random()*100+"vw";
+    document.body.appendChild(h);
+    setTimeout(()=>h.remove(),6000);
+},500);
+</script>
+
+</body>
+</html>
